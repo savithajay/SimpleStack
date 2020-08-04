@@ -1,44 +1,30 @@
+import java.lang.String;
+import java.util.ArrayList;
 
-public class BasicStack<T> {
+public class BasicStack implements Stack {
 	
-	private T[] data;
-	private int stackPointer;
+	private ArrayList<String> data;
 	
 	BasicStack() {
-		data = (T[]) new Object[1000];
-		stackPointer = 0;
+		data = new ArrayList<String>();	
 	}
 	
 	public int getStackLength() {
-		return stackPointer; 
+		return data.size();
 	}
 	
-	public void push(T newStackItem) {
-		data[stackPointer++] = newStackItem;
-	}
-	
-	public T pop() {
-		if(stackPointer == 0) {
-			throw new NullPointerException("There are no items in the stack");
-		}
-		return data[stackPointer--];
-	}
-	
-	public boolean searchForStackItem(T searchItem) {
-		boolean itemFound = false;
-		for(int i = 0; i < stackPointer; i++) {
-			if(data[i].equals(searchItem)) {
-				itemFound = true;
-				break;
+	public boolean searchForStackItem(String searchItem) {
+		data.forEach(item -> {
+			if(item.equals(searchItem)) {
+				return;
 			}
-		}
-		
-		return itemFound;
+		});
+		return false;
 	}
 	
-	public T getItem(T item) {
-		while(stackPointer > 0) {
-			T tempItem = pop();
+	public String getItem(String item) {
+		while(!data.isEmpty()) {
+			String tempItem = pop();
 			if(item.equals(tempItem)) {
 				return tempItem;
 			}
@@ -46,4 +32,18 @@ public class BasicStack<T> {
 		
 		throw new IllegalArgumentException("Item could not be found");
 	}
+
+	@Override
+	public String pop() {
+		if(data.size() == 0) {
+			throw new NullPointerException("There are no items in the stack");
+		}
+		return data.remove(data.size() - 1);
+	}
+
+	@Override
+	public void push(java.lang.String newItem) {
+		data.add(newItem);
+	}
+
 }

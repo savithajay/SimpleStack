@@ -1,6 +1,6 @@
 
 public class StackTest {
-	BasicStack<String> stack = new BasicStack<String>();
+	BasicStack stack = new BasicStack();
 
 	public static void main(String[] args) {
 		StackTest app = new StackTest();
